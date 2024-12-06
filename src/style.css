@@ -1,0 +1,17 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+  font-family: "Onest", sans-serif;
+}
+
+a {
+  text-decoration: none !important;
+  font-weight: 600 !important;
+  color: #333;
+}
+
+html, section {
+  background-color: #f8f8f6;
+}
