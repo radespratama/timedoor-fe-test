@@ -34,23 +34,20 @@
 </template>
 
 <script setup>
-import { computed, ref, watch } from "vue";
+import { computed, ref } from "vue";
 import { useStore } from "vuex";
 
 import { currencyFormatter } from "../../utils/helpers";
 import Modal from "./Modal.vue";
 
 const store = useStore();
-const orderItems = ref([]);
-const totalPrice = ref(0);
-
 const isModalVisible = ref(false);
 
 const pizzaData = computed(() => store.getters["foods/getSelectedPizza"]);
 
-const calculateOrderItems = () => {
+const orderItems = computed(() => {
   const items = [];
-  
+
   if (pizzaData.value?.pizza) {
     const pizzaPrice = pizzaData.value.pizza.discount?.is_active
       ? pizzaData.value.pizza.discount.final_price
@@ -67,24 +64,15 @@ const calculateOrderItems = () => {
 
   if (pizzaData.value?.new_toppings?.length > 0) {
     pizzaData.value.new_toppings.forEach((topping) => {
-      const toppingPrice = topping.price * 1.5;
-      items.push({ name: topping.name, price: toppingPrice });
+      items.push({ name: topping.name, price: topping.price });
     });
   }
 
   return items;
-};
+});
 
-watch(
-  pizzaData,
-  () => {
-    orderItems.value = calculateOrderItems();
-    totalPrice.value = orderItems.value.reduce(
-      (acc, item) => acc + item.price,
-      0
-    );
-  },
-  { immediate: true }
+const totalPrice = computed(() =>
+  orderItems.value.reduce((acc, item) => acc + item.price, 0)
 );
 
 const orderNow = () => {

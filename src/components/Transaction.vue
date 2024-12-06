@@ -6,7 +6,7 @@
           <div class="pizza-list-container">
             <h3 class="title-menu">Choose your pizza</h3>
             <div class="wrapper-items mt-4">
-              <CardProduct :pizzas="pizzaList" />
+              <PizzaSelected :pizzas="pizzaList" />
             </div>
           </div>
 
@@ -15,7 +15,7 @@
 
             <div class="mt-4">
               <h6 class="size-menu mb-3">Size</h6>
-              <RadioProduct
+              <SizeSelected
                 :sizes="sizeList"
                 :key="selectedCurrentPizza?.size"
               />
@@ -23,7 +23,7 @@
 
             <div class="my-5">
               <h6 class="size-menu mb-3">Toppings</h6>
-              <CheckboxProduct
+              <ToppingSelected
                 :key="selectedCurrentPizza?.pizza?.id"
                 :toppingList="toppingList"
                 :enableIds="
@@ -43,9 +43,9 @@
 </template>
 
 <script setup>
-import CardProduct from "./ui/CardProduct.vue";
-import RadioProduct from "./ui/RadioProduct.vue";
-import CheckboxProduct from "./ui/CheckboxProduct.vue";
+import PizzaSelected from "./ui/PizzaSelected.vue";
+import SizeSelected from "./ui/SizeSelected.vue";
+import ToppingSelected from "./ui/ToppingSelected.vue";
 import PaymentSummary from "../components/ui/PaymentSummary.vue";
 
 import { computed } from "vue";

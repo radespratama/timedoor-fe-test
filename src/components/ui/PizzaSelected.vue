@@ -12,11 +12,14 @@
     <div class="pizza-price">
       <h3>{{ pizza.name || "-" }}</h3>
       <div class="price-info">
-        <span class="price">{{
-          currencyFormatter(pizza.price || 0, "USD")
-        }}</span>
+        <span v-if="pizza.discount.is_active" class="price"
+          >{{ currencyFormatter(pizza.discount?.final_price || 0, "USD") }}
+        </span>
+        <span v-else class="price"
+          >{{ currencyFormatter(pizza.price || 0, "USD") }}
+        </span>
         <span v-if="pizza.discount?.is_active" class="old-price">
-          {{ currencyFormatter(pizza.discount?.final_price || 0, "USD") }}
+          {{ currencyFormatter(pizza.price, "USD") }}
         </span>
       </div>
     </div>
